@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 const Pagination = ({
   productsPerPage,
   currentPage,
@@ -10,11 +11,11 @@ const Pagination = ({
   }
 
   const onPreviousPage = () => {
-    if (currentPage !== 1) setCurrentPage(currentPage - 1);
+    setCurrentPage(currentPage - 1);
   };
 
   const onNextPage = () => {
-    if (currentPage <= pageNumbers.length - 1) setCurrentPage(currentPage + 1);
+    setCurrentPage(currentPage + 1);
   };
 
   const onSpecificPage = (noPage) => {
@@ -29,16 +30,20 @@ const Pagination = ({
     >
       <a
         className={`pagination-previous ${
-          currentPage <= pageNumbers.length ? 'is-disabled' : ''
+          currentPage === 1 ? 'is-disabled' : ''
         }`}
+        style={currentPage === 1 ? { pointerEvents: 'none' } : {}}
         onClick={onPreviousPage}
       >
         Previous
       </a>
       <a
         className={`pagination-next ${
-          currentPage === pageNumbers.length ? 'is-disabled' : ''
+          currentPage >= pageNumbers.length ? 'is-disabled' : ''
         }`}
+        style={
+          currentPage >= pageNumbers.length ? { pointerEvents: 'none' } : {}
+        }
         onClick={onNextPage}
       >
         Next page

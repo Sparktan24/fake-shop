@@ -8,6 +8,9 @@ const ProductList = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const totalProducts = products.length;
 
+  const lastIndex = currentPage * productsPerPage;
+  const firstIndex = lastIndex - productsPerPage;
+
   useEffect(() => {
     async function fetchProducts() {
       const productsList = await getProducts();
@@ -19,18 +22,20 @@ const ProductList = () => {
   return (
     <>
       <div className="container-products">
-        {products?.map((product) => (
-          <div className="card-product" key={product.id}>
-            <figure className="container-img">
-              <img src={product.image} alt={product.title} />
-            </figure>
-            <div className="info-product">
-              <h3>{product.title}</h3>
-              <p className="price">{product.price}</p>
-              <button>Add to cart</button>
+        {products
+          ?.map((product) => (
+            <div className="card-product" key={product.id}>
+              <figure className="container-img">
+                <img src={product.image} alt={product.title} />
+              </figure>
+              <div className="info-product">
+                <h3>{product.title}</h3>
+                <p className="price">{product.price}</p>
+                <button>Add to cart</button>
+              </div>
             </div>
-          </div>
-        ))}
+          ))
+          .slice(firstIndex, lastIndex)}
       </div>
       <Pagination
         productsPerPage={productsPerPage}
