@@ -6,6 +6,7 @@ const ProductList = () => {
   const [products, setProducts] = useState([]);
   const [productsPerPage, setProductsPerPage] = useState(6);
   const [currentPage, setCurrentPage] = useState(1);
+  const totalProducts = products.length;
 
   useEffect(() => {
     async function fetchProducts() {
@@ -31,7 +32,12 @@ const ProductList = () => {
           </div>
         ))}
       </div>
-      <Pagination />
+      <Pagination
+        productsPerPage={productsPerPage}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+        totalProducts={totalProducts}
+      />
     </>
   );
 };
